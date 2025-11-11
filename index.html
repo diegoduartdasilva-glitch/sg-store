@@ -1,0 +1,601 @@
+<html lang="pt-br"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DG STORE</title>
+<style>
+        :root {
+            --primary: #007bff;
+            --text: #1f2937;
+            --bg: #ffffff;
+            --gray: #6b7280;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        /* ===== CABEÇALHO ===== */
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.7rem 1rem;
+        }
+
+        .logo {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* ===== BARRA DE PESQUISA ===== */
+        .search-bar {
+            flex: 1;
+            max-width: 400px;
+            display: flex;
+            margin: 0 1rem;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 0.5rem 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 20px 0 0 20px;
+            outline: none;
+        }
+
+        .search-bar button {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 0 20px 20px 0;
+            padding: 0.5rem 0.9rem;
+            cursor: pointer;
+        }
+
+        /* ===== ÍCONES ===== */
+        .header-icons {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .icon {
+            text-decoration: none;
+            font-size: 1.3rem;
+            position: relative;
+            color: var(--text);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .icon:hover {
+            color: var(--primary);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -6px;
+            right: -10px;
+            background: red;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            padding: 0 5px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+        }
+
+        /* ===== MENU ===== */
+        nav {
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+            padding: 0.6rem 1rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* ===== POPUPS ===== */
+        .popup {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 320px;
+            height: 100%;
+            background: #fff;
+            box-shadow: -3px 0 10px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            padding: 1rem;
+            z-index: 2000;
+        }
+
+        .popup.active {
+            right: 0;
+        }
+
+        .popup h2 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .popup button.close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            float: right;
+            cursor: pointer;
+        }
+
+        .popup input {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .popup button.action {
+            width: 100%;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 0.6rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 768px) {
+            .search-bar {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+                display: none;
+            }
+
+            nav.active ul {
+                display: flex;
+            }
+        }
+    </style></head>
+
+
+    
+
+
+<body>
+
+    <!-- ===== CABEÇALHO ===== -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">🏷️ DG STORE</a>
+
+            <form class="search-bar">
+                <input type="text" id="searchInput" placeholder="Buscar produtos...">
+                <button type="submit">🔍</button>
+            </form>
+
+            <div class="header-icons">
+                <span class="icon" id="loginBtn" title="Entrar">👤</span>
+                <span class="icon" id="cartBtn" title="Carrinho">🛒<span class="cart-count">2</span></span>
+            </div>
+
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+
+        <nav id="mainNav">
+            <ul>
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Produtos</a></li>
+                <li><a href="#">Ofertas</a></li>
+                <li><a href="#">Novidades</a></li>
+                <li><a href="#">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ===== POPUP LOGIN ===== -->
+    <div class="popup" id="loginPopup">
+        <button class="close" onclick="closePopup('loginPopup')">×</button>
+        <h2>Entrar na conta</h2>
+        <input type="email" placeholder="E-mail" id="email">
+        <input type="password" placeholder="Senha" id="password">
+        <button class="action">Entrar</button>
+    </div>
+
+    <!-- ===== POPUP CARRINHO ===== -->
+    <div class="popup" id="cartPopup">
+        <button class="close" onclick="closePopup('cartPopup')">×</button>
+        <h2>🛒 Seu Carrinho</h2>
+        <p>2 itens adicionados.</p>
+        <button class="action">Finalizar compra</button>
+    </div>
+
+    <!-- ===== JS ===== -->
+    <script>
+        const menuToggle = document.getElementById("menuToggle");
+        const nav = document.getElementById("mainNav");
+        const cartBtn = document.getElementById("cartBtn");
+        const loginBtn = document.getElementById("loginBtn");
+        const cartPopup = document.getElementById("cartPopup");
+        const loginPopup = document.getElementById("loginPopup");
+
+        menuToggle.addEventListener("click", () => {
+            nav.classList.toggle("active");
+        });
+
+        cartBtn.addEventListener("click", () => {
+            togglePopup("cartPopup");
+        });
+
+        loginBtn.addEventListener("click", () => {
+            togglePopup("loginPopup");
+        });
+
+        function togglePopup(id) {
+            const popup = document.getElementById(id);
+            popup.classList.toggle("active");
+        }
+
+        function closePopup(id) {
+            document.getElementById(id).classList.remove("active");
+        }
+
+        // Busca de produtos (simulada)
+        document.querySelector(".search-bar").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const term = document.getElementById("searchInput").value.trim();
+            if (term) alert(`Buscando produtos relacionados a: "${term}"`);
+        });
+    </script>
+
+
+
+
+
+
+    <footer>
+        <p>© 2025 — Site desenvolvido por <strong>DG STUDIO</strong>. Todos os direitos reservados.</p>
+    </footer>
+
+
+
+
+
+<main>
+    <!-- Seção de destaque aprimorada -->
+    <section id="inicio" class="hero">
+        <div class="hero-inner">
+            <div class="hero-content">
+                <h2 class="hero-title">💎 NOVOS LANÇAMENTOS</h2>
+                <p class="hero-subtitle">
+                    Descubra nossa nova coleção com <strong>desconto exclusivo de lançamento</strong>.
+                    Produtos com qualidade, design moderno e entrega rápida para todo o Brasil.
+                </p>
+            
+                <div class="hero-actions">
+                    <a class="btn primary" href="#produtos">Ver produtos</a>
+                    <a class="btn secondary" href="#comprar">Comprar agora</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="img/iPhone-15.jpg" alt="Coleção especial de lançamento">
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de produtos em destaque -->
+    <section id="produtos" class="produtos">
+        <h3 class="section-title">PRODUTOS EM LANÇAMENTOS</h3>
+        <div class="produtos-grid">
+            <div class="produto-card">
+                <img src="img/apple.jpg" alt="Produto 1">
+                <h4>apple watch series 11</h4>
+                <p>Tecnologia, Estilo em um So Relógio</p>
+                <span class="preco">R$ 650</span>
+                <button class="btn primary">ADICIONAR AO CARRINHO</button>
+                <button class="btn primary">VER MAIS</button>
+            </div>
+
+            <div class="produto-card">
+                <img src="img/iphone 13.jpg" alt="Produto 2">
+                <h4>IPHONE 13</h4>
+                <p>Design moderno de alta qualidade.</p>
+                <span class="preco">R$ 3.500</span>
+                <button class="btn primary">ADICIONAR AO CARRINHO</button>
+                <button class="btn primary">VER MAIS</button>
+            </div>
+
+            <div class="produto-card">
+                <img src="img/iphone16.jpg" alt="Produto 3">
+                <h4>IPHONE 16</h4>
+                <p>Inovação Que Ultrapassa Limites</p>
+                <span class="preco">R$4.500</span>
+                <button class="btn primary">ADICIONAR AO CARRINHO</button>
+                <button class="btn primary">VER MAIS</button>
+            </div>
+        </div>
+
+
+    </section>
+</main>
+
+<style>
+    .hero {
+        background: linear-gradient(135deg, #0070f3 0%, #00b3a4 100%);
+        color: #fff;
+        padding: 100px 20px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .hero::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+        animation: shine 6s linear infinite;
+    }
+
+    @keyframes shine {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .hero-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 40px;
+        animation: fadeSlide 1.2s ease-out forwards;
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    @keyframes fadeSlide {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .hero-content {
+        flex: 1;
+        min-width: 280px;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 16px;
+        text-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-subtitle {
+        font-size: 1.15rem;
+        line-height: 1.6;
+        margin-bottom: 12px;
+        max-width: 520px;
+        color: #ffffff;
+    }
+
+    .hero-restricao {
+        font-size: 0.95rem;
+        color: rgba(238, 255, 0, 0.918);
+        margin-bottom: 24px;
+        font-style: italic;
+    }
+
+    .hero-actions .btn {
+        margin-right: 12px;
+        padding: 12px 22px;
+        font-size: 1rem;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        font-weight: 600;
+    }
+
+    .btn.primary {
+        background: #fff;
+        color: #0070f3;
+        border: none;
+    }
+
+    .btn.primary:hover {
+        background: #e8f1ff;
+        transform: translateY(-2px);
+    }
+
+    .btn.secondary {
+        background: transparent;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+
+    .btn.secondary:hover {
+        background: rgb(23, 91, 194);
+        transform: translateY(-2px);
+    }
+
+    .hero-image img {
+        width: 400px;
+        border-radius: 20px;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .hero-image img:hover {
+        transform: scale(1.03);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    /* ===========================
+   SEÇÃO PRODUTOS
+   =========================== */
+    .produtos {
+        padding: 80px 20px;
+        background: #0284ff8e;
+        text-align: center;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 40px;
+        color: #222;
+    }
+
+    .produtos-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 30px;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .produto-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        padding: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .produto-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .produto-card img {
+        width: 100%;
+        border-radius: 12px;
+        margin-bottom: 15px;
+    }
+
+    .produto-card h4 {
+        font-size: 1.2rem;
+        color: #333;
+        margin-bottom: 8px;
+    }
+
+    .produto-card p {
+        font-size: 0.95rem;
+        color: #666;
+        margin-bottom: 12px;
+    }
+
+    .preco {
+        display: block;
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: #0070f3;
+        margin-bottom: 12px;
+    }
+
+    .produto-aviso {
+        font-size: 0.9rem;
+        color: #555;
+        margin-top: 30px;
+        font-style: italic;
+    }
+
+    /* Responsividade */
+    @media (max-width: 900px) {
+        .hero-inner {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            margin: 0 auto 20px;
+        }
+
+        .hero-image img {
+            width: 80%;
+        }
+    }
+
+    footer {
+        background: #fff;
+        text-align: center;
+        padding: 15px;
+        font-size: 14px;
+        color: #666;
+        border-top: 1px solid #ddd;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    footer strong {
+        color: #ff6f61;
+    }
+</style></body></html>
